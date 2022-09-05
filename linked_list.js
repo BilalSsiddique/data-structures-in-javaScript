@@ -58,6 +58,9 @@ class LinkedList {
             count+=1
         }
     }
+    removeAtIndex(index){
+        
+    }
 
 
 
