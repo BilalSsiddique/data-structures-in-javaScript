@@ -59,7 +59,28 @@ class LinkedList {
         }
     }
     removeAtIndex(index){
-        
+        if (index<0 || index>=this.linkListLength()){
+            console.log("Invalid index")
+            return
+        }
+        else if (index===0){
+            this.head=this.head.next
+        }
+        let count=0
+        let iter= this.head
+        while (iter){
+            if (count===index-1){
+                iter.next=iter.next.next
+                break
+            }
+            iter = iter.next
+            count += 1
+        }
+    }
+    insertMultiple(list){
+        for (let item of list){
+            this.insertAtEnd(item)
+        }
     }
 
 
@@ -87,6 +108,9 @@ llink.insertAtStart(2)
 llink.insertAtStart(4)
 llink.insertAtEnd(3)
 llink.printLList()
+llink.removeAtIndex(1)
+llink.printLList()
 llink.insertAtIndex(5,1)
+llink.insertMultiple([6,7,8,9])
 llink.printLList()
 console.log(llink.linkListLength())
