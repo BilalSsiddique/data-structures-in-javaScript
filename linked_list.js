@@ -37,49 +37,66 @@ class LinkedList {
         }
         return count
     }
-    insertAtIndex(data,index){
-        if (index<0 || index>=this.linkListLength()){
+    insertAtIndex(data, index) {
+        if (index < 0 || index >= this.linkListLength()) {
             console.log("Invalid Index")
             return
         }
-        else if (index===0){
+        else if (index === 0) {
             this.insertAtStart(data)
             return
         }
-        let count=0;
-        let iter=this.head
+        let count = 0;
+        let iter = this.head
 
-        while (iter){
-            if (count===index-1){
-                let next= iter.next
-                iter.next= new Node(data,next)
-            }
-            iter=iter.next
-            count+=1
-        }
-    }
-    removeAtIndex(index){
-        if (index<0 || index>=this.linkListLength()){
-            console.log("Invalid index")
-            return
-        }
-        else if (index===0){
-            this.head=this.head.next
-        }
-        let count=0
-        let iter= this.head
-        while (iter){
-            if (count===index-1){
-                iter.next=iter.next.next
-                break
+        while (iter) {
+            if (count === index - 1) {
+                let next = iter.next
+                iter.next = new Node(data, next)
             }
             iter = iter.next
             count += 1
         }
     }
-    insertMultiple(list){
-        for (let item of list){
+    removeAtIndex(index) {
+        if (index < 0 || index >= this.linkListLength()) {
+            console.log("Invalid index")
+            return
+        }
+        else if (index === 0) {
+            this.head = this.head.next
+        }
+        let count = 0
+        let iter = this.head
+        while (iter) {
+            if (count === index - 1) {
+                iter.next = iter.next.next
+                break
+            }
+
+            count += 1
+            iter = iter.next
+        }
+    }
+    insertMultiple(list) {
+        for (let item of list) {
             this.insertAtEnd(item)
+        }
+    }
+    middleLList() {
+        let middle = this.linkListLength() / 2 //return middle if length is odd
+        if (middle % 2 !== 0) {
+            middle = Math.floor(middle)   // else return second middle element
+        }
+
+        let iter = this.head
+        let count = 0
+        while (iter) {
+            if (count == middle) {
+                return iter.data
+            }
+            count += 1
+            iter = iter.next
         }
     }
 
@@ -99,6 +116,17 @@ class LinkedList {
         }
         console.log(`${llstr} NextNull`)
     }
+    reverseLList(){
+        let prev=null
+        let iter= this.head
+        while (iter){
+            let next= iter.next
+            iter.next=prev
+            prev=iter
+            iter= next
+        }
+        this.head=prev
+    }
 
 }
 
@@ -110,7 +138,16 @@ llink.insertAtEnd(3)
 llink.printLList()
 llink.removeAtIndex(1)
 llink.printLList()
-llink.insertAtIndex(5,1)
-llink.insertMultiple([6,7,8,9])
+llink.insertAtIndex(5, 1)
+llink.insertMultiple([6, 7, 8])
+
 llink.printLList()
-console.log(llink.linkListLength())
+console.log(`The middle element in the linked list is: ${llink.middleLList()}`)
+llink.insertAtIndex(9, 6)
+llink.printLList()
+
+console.log(`The middle element in the linked list is: ${llink.middleLList()}`)
+console.log(`The Length of linked list is : ${llink.linkListLength()}`)
+console.log("Reverese LList:")
+llink.reverseLList()
+llink.printLList()
