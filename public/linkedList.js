@@ -57,6 +57,46 @@ class LinkedList {
             iter = iter.next;
         }
     }
+    removeFromStart() {
+        if (this.head === null) {
+            throw 'Linked List is Empty';
+        }
+        let freeTemp = this.head;
+        this.head = this.head.next;
+        freeTemp = null;
+    }
+    removeFromEnd() {
+        if (this.head === null) {
+            throw 'Linked List is Empty';
+        }
+        if (this.head.next === null) {
+            throw 'Not enough elements to remove';
+        }
+        let iter = this.head;
+        while (iter.next.next) {
+            iter = iter.next;
+        }
+        iter.next = null;
+        this.print();
+    }
+    remoteAtIndex(index) {
+        if (index < 0 || index >= this.length())
+            throw "Index Invalid";
+        if (index === 0) {
+            this.removeFromStart();
+        }
+        let iter = this.head;
+        let count = 0;
+        while (iter) {
+            if (count === index - 1) {
+                console.log(`Removed indexed ${count + 1} element from the linkedlist`);
+                iter.next = iter.next.next;
+                break;
+            }
+            iter = iter.next;
+            count++;
+        }
+    }
     length() {
         let count = 0;
         let iter = this.head;
@@ -80,12 +120,20 @@ let llist = new LinkedList();
 llist.insertAtStart(5);
 llist.insertAtEnd(6);
 llist.print();
-llist.middleElement();
-llist.insertAtStart(4);
-llist.insertAtStart(3);
+// llist.remoteAtIndex(5)
 llist.print();
-llist.insertAtIndex(1,7)
+llist.removeFromEnd();
+llist.removeFromEnd();
 llist.print();
-llist.middleElement();
-console.log('Length:', llist.length());
-llist.print();
+// llist.middleElement()
+// llist.insertAtStart(4)
+// // llist.removeFromEnd()
+// llist.insertAtStart(3)
+// llist.removeFromEnd()
+// llist.insertAtStart(8)
+// llist.print()
+// llist.insertAtIndex(1,9)
+// llist.print()
+// llist.middleElement()
+// console.log('Length:',llist.length())
+// llist.print()
